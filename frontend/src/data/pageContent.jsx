@@ -769,7 +769,7 @@ while (true) {
             <div className="flex flex-col gap-12 mt-8 w-full max-w-none not-prose">
                 
                 {/* Contact Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <a href="mailto:shreyanshg2005online@gmail.com?subject=General%20Support" className="group bg-[#1c1c1f] hover:bg-[#252529] border border-white/10 hover:border-white/20 transition-all rounded-2xl p-6 flex flex-col gap-4 relative overflow-hidden">
                         <div className="absolute top-0 left-0 w-full h-1 bg-indigo-500/50 group-hover:bg-indigo-500 transition-colors"></div>
                         <h3 className="text-xs font-bold text-white/50 tracking-widest uppercase">General Support</h3>
@@ -789,6 +789,13 @@ while (true) {
                         <h3 className="text-xs font-bold text-white/50 tracking-widest uppercase">Feedback & Ideas</h3>
                         <p className="text-white font-medium text-lg leading-snug">Feature requests, suggestions</p>
                         <span className="text-amber-400 text-sm mt-auto">shreyanshg2005online@gmail.com</span>
+                    </a>
+
+                    <a href="https://www.instagram.com/shreyanshg2005/" target="_blank" rel="noreferrer" className="group bg-[#1c1c1f] hover:bg-[#252529] border border-white/10 hover:border-white/20 transition-all rounded-2xl p-6 flex flex-col gap-4 relative overflow-hidden">
+                        <div className="absolute top-0 left-0 w-full h-1 bg-pink-500/50 group-hover:bg-pink-500 transition-colors"></div>
+                        <h3 className="text-xs font-bold text-white/50 tracking-widest uppercase">Social</h3>
+                        <p className="text-white font-medium text-lg leading-snug">Follow on Instagram</p>
+                        <span className="text-pink-400 text-sm mt-auto">@shreyanshg2005</span>
                     </a>
                 </div>
 
