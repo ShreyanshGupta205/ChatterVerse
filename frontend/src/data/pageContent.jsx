@@ -320,7 +320,7 @@ The roadmap is shaped by the community. If there's a feature you're desperate fo
                 <div>
                     <h3 className="text-lg font-bold text-white/90 mb-4">Base URL</h3>
                     <div className="bg-[#1c1c1f] border border-white/10 rounded-xl p-4 font-mono text-sm text-white/80 overflow-x-auto">
-                        https://chatterverse-api.onrender.com/api
+                        https://chatterverse-33v5.onrender.com/api
                     </div>
                 </div>
 
@@ -392,7 +392,7 @@ The roadmap is shaped by the community. If there's a feature you're desperate fo
                 <div>
                     <h3 className="text-lg font-bold text-white/90 mb-4">Example — fetch with streaming</h3>
                     <pre className="bg-[#1c1c1f] border border-white/10 rounded-xl p-6 overflow-x-auto text-xs font-mono text-white/80 leading-relaxed">
-{`const res = await fetch('https://chatterverse-api.onrender.com/api/chat', {
+{`const res = await fetch('https://chatterverse-33v5.onrender.com/api/chat', {
   method: 'POST',
   headers: {
     'Authorization': \`Bearer \${API_KEY}\`,
@@ -565,7 +565,7 @@ while (true) {
                         <div className="flex justify-between items-center p-4 border-b border-white/5">
                             <div>
                                 <p className="font-bold text-white text-sm">ChatterVerse API (Render)</p>
-                                <p className="text-xs text-white/50">chatterverse-api.onrender.com</p>
+                                <p className="text-xs text-white/50">chatterverse-33v5.onrender.com</p>
                             </div>
                             <span className="px-3 py-1 bg-green-500/20 text-green-400 text-xs font-bold rounded-full border border-green-500/30 shadow-[0_0_10px_rgba(34,197,94,0.2)]">Operational</span>
                         </div>
