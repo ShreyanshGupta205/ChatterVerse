@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ChatPage from './pages/Chat';
 import Landing from './pages/Landing';
+import InfoPage from './pages/InfoPage';
 import useAuthStore from './store/useAuthStore';
 
 // Protected Route Component
@@ -26,6 +27,7 @@ function App() {
         
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/info/:pageId" element={<InfoPage />} />
         
         {/* Chat Interface Protected */}
         <Route 
