@@ -19,17 +19,43 @@ const getGenAI = () => {
 router.get('/test-ai', async (req, res) => {
     try {
         const genAI = getGenAI();
+        
+        // List models
+        // Note: The SDK might not expose listModels directly on the genAI object depending on version
+        // We'll try to use generateContent with a safe model first
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-        const result = await model.generateContent("Hello, respond with 'OK' if you can hear me.");
+        
+        // If it fails, we'll catch it below
+        const result = await model.generateContent("Hello");
         const text = result.response.text();
+        
         res.json({ status: "success", response: text, keyLength: (process.env.GEMINI_API_KEY || '').length });
     } catch (error) {
         console.error("❌ AI DIAGNOSIS FAILED:", error);
+        
+        // Try to get more info by listing models if possible
+        let availableModels = "Could not list models";
+        try {
+            // Using the REST API fallback to list models
+            const https = require('https');
+            const listModels = await new Promise((resolve, reject) => {
+                const key = (process.env.GEMINI_API_KEY || '').trim();
+                https.get(`https://generativelanguage.googleapis.com/v1beta/models?key=${key}`, (res) => {
+                    let data = '';
+                    res.on('data', d => data += d);
+                    res.on('end', () => resolve(JSON.parse(data)));
+                }).on('error', reject);
+            });
+            availableModels = listModels;
+        } catch (e) {
+            availableModels = "Failed to fetch model list: " + e.message;
+        }
+
         res.status(500).json({ 
             status: "error", 
             message: error.message, 
-            keyLength: (process.env.GEMINI_API_KEY || '').length,
-            tip: "Check if your API key is restricted or if you have hit your quota."
+            availableModels: availableModels,
+            keyLength: (process.env.GEMINI_API_KEY || '').length
         });
     }
 });
