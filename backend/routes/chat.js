@@ -228,12 +228,18 @@ router.post('/:id', protect, async (req, res) => {
 
     } catch (error) {
         console.error("🔥 CHAT ERROR:", error);
-        const errorMessage = error.message || 'An unexpected error occurred in the AI engine';
+        let errorMessage = error.message || 'An unexpected error occurred in the AI engine';
         
+        // Friendly Rate Limit Message
+        if (error.status === 429 || (error.message && error.message.includes('429'))) {
+            errorMessage = "🚨 *[Rate Limit Reached]* Oh no! I've talked too much today (Daily Quota reached). Please try again in a bit or switch to another model! 😅";
+        }
+
         if (!res.headersSent) {
             res.status(500).json({ message: errorMessage });
         } else {
-            res.write(`data: ${JSON.stringify({ error: errorMessage })}\n\n`);
+            res.write(`data: ${JSON.stringify({ text: `\n\n${errorMessage}` })}\n\n`);
+            res.write(`data: [DONE]\n\n`);
             res.end();
         }
     }
@@ -320,10 +326,19 @@ router.post('/:id/regenerate', protect, async (req, res) => {
         res.write(`data: [DONE]\n\n`);
         res.end();
     } catch (error) {
+        console.error("🔥 REGENERATE ERROR:", error);
+        let errorMessage = error.message || 'An unexpected error occurred in the AI engine';
+
+        // Friendly Rate Limit Message
+        if (error.status === 429 || (error.message && error.message.includes('429'))) {
+            errorMessage = "🚨 *[Rate Limit Reached]* Oh no! I've talked too much today (Daily Quota reached). Please try again in a bit or switch to another model! 😅";
+        }
+
         if (!res.headersSent) {
-            res.status(500).json({ message: error.message });
+            res.status(500).json({ message: errorMessage });
         } else {
-            res.write(`data: ${JSON.stringify({ error: error.message })}\n\n`);
+            res.write(`data: ${JSON.stringify({ text: `\n\n${errorMessage}` })}\n\n`);
+            res.write(`data: [DONE]\n\n`);
             res.end();
         }
     }
