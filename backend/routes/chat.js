@@ -23,7 +23,7 @@ router.get('/test-ai', async (req, res) => {
         // List models
         // Note: The SDK might not expose listModels directly on the genAI object depending on version
         // We'll try to use generateContent with a safe model first
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
         
         // If it fails, we'll catch it below
         const result = await model.generateContent("Hello");
@@ -132,11 +132,17 @@ router.post('/:id', protect, async (req, res) => {
         if (chat.userId.toString() !== req.user._id.toString()) return res.status(401).json({ message: 'Unauthorized' });
 
         const systemPrompt = getSystemPrompt(mood || chat.mood);
-        const activeModel = model || chat.model || 'gemini-2.5-flash';
+        let activeModel = model || chat.model || 'gemini-2.5-flash';
 
-        // Update chat properties if changed
+        // FORCE MIGRATION: If the database or request has any '1.5' reference, upgrade it to '2.5'
+        if (activeModel.includes('1.5')) {
+            console.log(`🚀 UPGRADING deprecated model ID: ${activeModel} -> gemini-2.5-flash`);
+            activeModel = 'gemini-2.5-flash';
+        }
+
+        // Update chat properties
         if (mood) chat.mood = mood;
-        if (model) chat.model = model;
+        chat.model = activeModel; // Sync back the upgraded ID to the DB
 
         chat.messages.push({ role: 'user', content: message });
 
@@ -248,10 +254,12 @@ router.post('/:id/regenerate', protect, async (req, res) => {
         if (chat.messages.length === 0) return res.status(400).json({ message: 'No messages to regenerate' });
 
         const systemPrompt = getSystemPrompt(mood || chat.mood);
-        const activeModel = model || chat.model || 'gemini-2.5-flash';
+        let activeModel = model || chat.model || 'gemini-2.5-flash';
+
+        if (activeModel.includes('1.5')) activeModel = 'gemini-2.5-flash';
 
         if (mood) chat.mood = mood;
-        if (model) chat.model = model;
+        chat.model = activeModel;
 
         res.setHeader('Content-Type', 'text/event-stream');
         res.setHeader('Cache-Control', 'no-cache');
