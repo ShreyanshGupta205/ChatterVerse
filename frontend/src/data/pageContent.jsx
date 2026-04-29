@@ -237,7 +237,7 @@ Premium glassmorphism UI, smooth dark mode, and micro-animations throughout. Cha
 - **Information Hub** — Legal pages (Privacy, Terms), Product pages (Features, Roadmap), and Developer docs are now live.
 
 **🐛 Bug Fixes**
-- **Fixed:** Gemini model routing was using deprecated \`gemini-1.5-flash\` IDs, causing silent API 404 errors on every message. Updated to \`gemini-2.5-flash\` and \`gemini-2.5-pro\`.
+- **Fixed:** Gemini model routing was using incorrect \`2.5\` version IDs, causing API 404 errors. Updated to valid \`gemini-1.5-flash\` and \`gemini-1.5-pro\` IDs.
 - **Fixed:** Critical UX bug — when a message hit a network error, it would silently disappear from the chat UI. Messages now remain visible even on failure, so you never lose what you typed.
 
 ---
@@ -346,7 +346,7 @@ The roadmap is shaped by the community. If there's a feature you're desperate fo
                                 <pre className="bg-black/50 border border-white/5 rounded-xl p-4 overflow-x-auto text-xs font-mono text-white/80 leading-relaxed">
 {`{
   "message": "Explain async/await in JS",
-  "model": "gemini-2.5-flash",
+  "model": "gemini-1.5-flash",
   "vibe": "coder-bro",
   "history": []
 }`}
@@ -463,8 +463,8 @@ while (true) {
                     <div className="bg-[#1c1c1f] border border-white/10 rounded-2xl p-6 flex flex-col gap-4">
                         <div className="flex justify-between items-start">
                             <div>
-                                <h3 className="text-xl font-bold text-white mb-1">Gemini 2.5 Flash</h3>
-                                <code className="text-xs font-mono text-white/50 bg-black/30 px-2 py-1 rounded">gemini-2.5-flash</code>
+                                <h3 className="text-xl font-bold text-white mb-1">Gemini 1.5 Flash</h3>
+                                <code className="text-xs font-mono text-white/50 bg-black/30 px-2 py-1 rounded">gemini-1.5-flash</code>
                             </div>
                             <span className="px-3 py-1 bg-green-500/10 text-green-400 text-xs font-bold rounded-full border border-green-500/20">Live</span>
                         </div>
@@ -482,8 +482,8 @@ while (true) {
                     <div className="bg-[#1c1c1f] border border-white/10 rounded-2xl p-6 flex flex-col gap-4">
                         <div className="flex justify-between items-start">
                             <div>
-                                <h3 className="text-xl font-bold text-white mb-1">Gemini 2.5 Pro</h3>
-                                <code className="text-xs font-mono text-white/50 bg-black/30 px-2 py-1 rounded">gemini-2.5-pro</code>
+                                <h3 className="text-xl font-bold text-white mb-1">Gemini 1.5 Pro</h3>
+                                <code className="text-xs font-mono text-white/50 bg-black/30 px-2 py-1 rounded">gemini-1.5-pro</code>
                             </div>
                             <span className="px-3 py-1 bg-green-500/10 text-green-400 text-xs font-bold rounded-full border border-green-500/20">Live</span>
                         </div>
