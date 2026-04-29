@@ -134,9 +134,10 @@ router.post('/:id', protect, async (req, res) => {
         const systemPrompt = getSystemPrompt(mood || chat.mood);
         let activeModel = model || chat.model || 'gemini-2.5-flash';
 
-        // FORCE MIGRATION: If the database or request has any '1.5' reference, upgrade it to '2.5'
-        if (activeModel.includes('1.5')) {
-            console.log(`🚀 UPGRADING deprecated model ID: ${activeModel} -> gemini-2.5-flash`);
+        // FORCE MIGRATION: If the database or request has any '1.5' or legacy reference, upgrade it to '2.5'
+        const legacyModels = ['1.5', 'gemini-pro', 'gemini-ultra'];
+        if (legacyModels.some(m => activeModel.includes(m))) {
+            console.log(`🚀 UPGRADING legacy model ID: ${activeModel} -> gemini-2.5-flash`);
             activeModel = 'gemini-2.5-flash';
         }
 
@@ -256,7 +257,10 @@ router.post('/:id/regenerate', protect, async (req, res) => {
         const systemPrompt = getSystemPrompt(mood || chat.mood);
         let activeModel = model || chat.model || 'gemini-2.5-flash';
 
-        if (activeModel.includes('1.5')) activeModel = 'gemini-2.5-flash';
+        const legacyModels = ['1.5', 'gemini-pro', 'gemini-ultra'];
+        if (legacyModels.some(m => activeModel.includes(m))) {
+            activeModel = 'gemini-2.5-flash';
+        }
 
         if (mood) chat.mood = mood;
         chat.model = activeModel;

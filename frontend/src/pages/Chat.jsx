@@ -134,8 +134,8 @@ const ChatPage = () => {
                     >
                       <Cpu size={14} className="text-emerald-400" />
                       Model: <span className="text-white">
-                        {selectedModel === 'gemini-1.5-flash' ? 'Gemini Flash' : 
-                         selectedModel === 'gemini-1.5-pro' ? 'Gemini Pro' : 
+                        {selectedModel === 'gemini-2.5-flash' ? 'Gemini 2.5 Flash' : 
+                         selectedModel === 'gemini-2.5-pro' ? 'Gemini 2.5 Pro' : 
                          selectedModel === 'gpt-4o' ? 'GPT-4o' : 
                          selectedModel === 'gpt-3.5-turbo' ? 'GPT-3.5' : selectedModel}
                       </span>
