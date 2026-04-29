@@ -53,7 +53,9 @@ router.post('/sync/init', async (req, res) => {
 
         // Verify token via Firebase Identity Toolkit
         const firebaseUser = await new Promise((resolve, reject) => {
-            const body = JSON.stringify({ idToken });
+            console.log('SYNC INIT: Verifying token with Identity Toolkit...');
+            const body = JSON.stringify({ idToken, returnSecureToken: true });
+            console.log('SYNC INIT: Request body length:', body.length);
             const options = {
                 hostname: 'identitytoolkit.googleapis.com',
                 path: `/v1/accounts:lookup?key=${FIREBASE_WEB_API_KEY}`,
@@ -70,15 +72,26 @@ router.post('/sync/init', async (req, res) => {
                     try {
                         const parsed = JSON.parse(data);
                         if (parsed.error) {
+                            console.error('SYNC INIT: Firebase error:', parsed.error);
                             return reject(new Error(parsed.error.message || 'Firebase token invalid'));
                         }
                         const user = parsed.users?.[0];
-                        if (!user) return reject(new Error('Firebase user not found'));
+                        if (!user) {
+                            console.error('SYNC INIT: No user in response:', parsed);
+                            return reject(new Error('Firebase user not found'));
+                        }
+                        console.log('SYNC INIT: Token verified successfully for:', user.email);
                         resolve(user);
-                    } catch (e) { reject(e); }
+                    } catch (e) { 
+                        console.error('SYNC INIT: JSON parse error:', e);
+                        reject(e); 
+                    }
                 });
             });
-            request.on('error', reject);
+            request.on('error', (err) => {
+                console.error('SYNC INIT: Request error:', err);
+                reject(err);
+            });
             request.write(body);
             request.end();
         });
@@ -86,20 +99,33 @@ router.post('/sync/init', async (req, res) => {
         const { localId: firebaseUid, email, displayName: name, photoUrl: picture } = firebaseUser;
         const { username } = req.body;
 
+        console.log('SYNC INIT: Starting for email:', email);
+
         // Upsert user by firebaseUid
         let user = await User.findOne({ firebaseUid });
 
         if (!user) {
+            console.log('SYNC INIT: User not found in MongoDB, creating/linking...');
             // Try to find by email (legacy account migration)
             user = await User.findOne({ email });
             if (user) {
+                console.log('SYNC INIT: Found user by email, linking firebaseUid');
                 // Link existing account to Firebase
                 user.firebaseUid = firebaseUid;
                 if (!user.avatar && picture) user.avatar = picture;
                 await user.save();
             } else {
                 // Brand new user
-                const displayName = username || name || email.split('@')[0];
+                console.log('SYNC INIT: Creating brand new user');
+                let displayName = username || name || email.split('@')[0];
+                
+                // Ensure username uniqueness (to avoid E11000 duplicate key error)
+                const existingUsername = await User.findOne({ username: displayName });
+                if (existingUsername) {
+                    displayName = `${displayName}_${Math.floor(Math.random() * 1000)}`;
+                    console.log('SYNC INIT: Username taken, using:', displayName);
+                }
+
                 user = await User.create({
                     firebaseUid,
                     username: displayName,
@@ -108,7 +134,11 @@ router.post('/sync/init', async (req, res) => {
                     password: null,
                 });
             }
+        } else {
+            console.log('SYNC INIT: User found by firebaseUid');
         }
+
+        console.log('SYNC INIT: Success for user:', user._id);
 
         res.json({
             id: user._id,

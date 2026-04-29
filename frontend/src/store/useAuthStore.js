@@ -114,8 +114,10 @@ const useAuthStore = create((set) => ({
       localStorage.setItem('token', token);
       return true;
     } catch (error) {
+      console.error('GOOGLE SIGNIN ERROR:', error);
       if (error.code !== 'auth/popup-closed-by-user') {
-        set({ error: error.response?.data?.message || 'Google sign-in failed', loading: false });
+        const errorMessage = error.response?.data?.message || error.message || 'Google sign-in failed';
+        set({ error: errorMessage, loading: false });
       } else {
         set({ loading: false });
       }
