@@ -86,11 +86,17 @@ router.post('/:id', protect, async (req, res) => {
         if (chat.userId.toString() !== req.user._id.toString()) return res.status(401).json({ message: 'Unauthorized' });
 
         const systemPrompt = getSystemPrompt(mood || chat.mood);
-        const activeModel = model || chat.model || 'gemini-1.5-flash';
+        let activeModel = model || chat.model || 'gemini-1.5-flash';
+
+        // Auto-migrate deprecated/hallucinated IDs from old database records
+        if (activeModel.includes('2.5')) {
+            console.log(`🔄 Migrating deprecated model ID: ${activeModel} -> gemini-1.5-flash`);
+            activeModel = 'gemini-1.5-flash';
+        }
 
         // Update chat properties if changed
         if (mood) chat.mood = mood;
-        if (model) chat.model = model;
+        chat.model = activeModel; // Always sync back the sanitized model ID
 
         chat.messages.push({ role: 'user', content: message });
 
@@ -202,10 +208,12 @@ router.post('/:id/regenerate', protect, async (req, res) => {
         if (chat.messages.length === 0) return res.status(400).json({ message: 'No messages to regenerate' });
 
         const systemPrompt = getSystemPrompt(mood || chat.mood);
-        const activeModel = model || chat.model || 'gemini-1.5-flash';
+        let activeModel = model || chat.model || 'gemini-1.5-flash';
+
+        if (activeModel.includes('2.5')) activeModel = 'gemini-1.5-flash';
 
         if (mood) chat.mood = mood;
-        if (model) chat.model = model;
+        chat.model = activeModel;
 
         res.setHeader('Content-Type', 'text/event-stream');
         res.setHeader('Cache-Control', 'no-cache');
