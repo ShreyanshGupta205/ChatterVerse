@@ -34,7 +34,7 @@ const useChatStore = create((set, get) => ({
   chats: [],
   currentChatId: localStorage.getItem('currentChatId') || null,
   mood: 'Chill Buddy',
-  selectedModel: 'gemini-2.5-flash',
+  selectedModel: 'gemini-flash-latest',
   loading: false,
   error: null,
   abortController: null,

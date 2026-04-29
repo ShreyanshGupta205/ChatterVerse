@@ -134,8 +134,8 @@ const ChatPage = () => {
                     >
                       <Cpu size={14} className="text-emerald-400" />
                       Model: <span className="text-white">
-                        {selectedModel === 'gemini-2.5-flash' ? 'Gemini 2.5 Flash' : 
-                         selectedModel === 'gemini-2.5-pro' ? 'Gemini 2.5 Pro' : 
+                        {selectedModel === 'gemini-flash-latest' ? 'Gemini Flash' : 
+                         selectedModel === 'gemini-2.0-flash' ? 'Gemini 2.0 Flash' : 
                          selectedModel === 'gpt-4o' ? 'GPT-4o' : 
                          selectedModel === 'gpt-3.5-turbo' ? 'GPT-3.5' : selectedModel}
                       </span>
@@ -151,7 +151,7 @@ const ChatPage = () => {
                           className="absolute top-full right-0 mt-2 w-48 glass-dark rounded-2xl p-2 border border-white/10 shadow-2xl flex flex-col gap-1"
                         >
                           {[
-                              { id: 'gemini-2.5-flash', name: 'Gemini 2.5 Flash' },
+                              { id: 'gemini-flash-latest', name: 'Gemini Flash' },
                               { id: 'gemini-2.5-pro', name: 'Gemini 2.5 Pro' },
                               { id: 'gpt-4o', name: 'GPT-4o' },
                               { id: 'gpt-3.5-turbo', name: 'GPT-3.5 Turbo' }

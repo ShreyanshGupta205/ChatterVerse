@@ -23,7 +23,7 @@ router.get('/test-ai', async (req, res) => {
         // List models
         // Note: The SDK might not expose listModels directly on the genAI object depending on version
         // We'll try to use generateContent with a safe model first
-        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+        const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
         
         // If it fails, we'll catch it below
         const result = await model.generateContent("Hello");
@@ -100,7 +100,7 @@ router.post('/', protect, async (req, res) => {
         const newChat = new Chat({
             userId: req.user._id,
             mood: mood || 'Chill Buddy',
-            model: model || 'gemini-2.5-flash',
+            model: model || 'gemini-flash-latest',
             messages: []
         });
         await newChat.save();
@@ -132,13 +132,13 @@ router.post('/:id', protect, async (req, res) => {
         if (chat.userId.toString() !== req.user._id.toString()) return res.status(401).json({ message: 'Unauthorized' });
 
         const systemPrompt = getSystemPrompt(mood || chat.mood);
-        let activeModel = model || chat.model || 'gemini-2.5-flash';
+        let activeModel = model || chat.model || 'gemini-flash-latest';
 
         // FORCE MIGRATION: If the database or request has any '1.5' or legacy reference, upgrade it to '2.5'
         const legacyModels = ['1.5', 'gemini-pro', 'gemini-ultra'];
         if (legacyModels.some(m => activeModel.includes(m))) {
-            console.log(`🚀 UPGRADING legacy model ID: ${activeModel} -> gemini-2.5-flash`);
-            activeModel = 'gemini-2.5-flash';
+            console.log(`🚀 UPGRADING legacy model ID: ${activeModel} -> gemini-flash-latest`);
+            activeModel = 'gemini-flash-latest';
         }
 
         // Update chat properties
@@ -255,11 +255,11 @@ router.post('/:id/regenerate', protect, async (req, res) => {
         if (chat.messages.length === 0) return res.status(400).json({ message: 'No messages to regenerate' });
 
         const systemPrompt = getSystemPrompt(mood || chat.mood);
-        let activeModel = model || chat.model || 'gemini-2.5-flash';
+        let activeModel = model || chat.model || 'gemini-flash-latest';
 
         const legacyModels = ['1.5', 'gemini-pro', 'gemini-ultra'];
         if (legacyModels.some(m => activeModel.includes(m))) {
-            activeModel = 'gemini-2.5-flash';
+            activeModel = 'gemini-flash-latest';
         }
 
         if (mood) chat.mood = mood;
@@ -344,7 +344,7 @@ router.post('/:id/title', protect, async (req, res) => {
         if (!firstUserMessage) return res.json({ title: chat.title });
 
         const genAI = getGenAI();
-        const genModel = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+        const genModel = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
 
         const prompt = `Generate a very short, maximum 4-word catchy title for a chat that starts with this user message: "${firstUserMessage}". The title must represent the topic. Do not use quotes around the output.`;
         

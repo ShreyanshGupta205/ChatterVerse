@@ -237,7 +237,7 @@ Premium glassmorphism UI, smooth dark mode, and micro-animations throughout. Cha
 - **Information Hub** — Legal pages (Privacy, Terms), Product pages (Features, Roadmap), and Developer docs are now live.
 
 **🐛 Bug Fixes**
-- **Fixed:** Gemini model routing was using deprecated IDs, causing silent API 404 errors on every message. Updated to the latest \`gemini-2.5-flash\` and \`gemini-2.5-pro\` stable IDs.
+- **Fixed:** Gemini model routing was using deprecated IDs, causing silent API 404 errors on every message. Updated to the latest \`gemini-flash-latest\` and \`gemini-2.5-pro\` stable IDs.
 - **Fixed:** Critical UX bug — when a message hit a network error, it would silently disappear from the chat UI. Messages now remain visible even on failure, so you never lose what you typed.
 
 ---
