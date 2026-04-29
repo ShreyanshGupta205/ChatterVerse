@@ -7,12 +7,32 @@ const OpenAI = require('openai');
 
 // Lazy init genAI for safe startup
 const getGenAI = () => {
-    if (!process.env.GEMINI_API_KEY) {
-        console.error("❌ GEMINI AI ERROR: GEMINI_API_KEY is missing from .env!");
+    const key = (process.env.GEMINI_API_KEY || '').trim();
+    if (!key) {
+        console.error("❌ GEMINI AI ERROR: GEMINI_API_KEY is missing!");
         throw new Error("AI Configuration Error: Missing API Key");
     }
-    return new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+    return new GoogleGenerativeAI(key);
 };
+
+// Diagnostic route to test API key
+router.get('/test-ai', async (req, res) => {
+    try {
+        const genAI = getGenAI();
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const result = await model.generateContent("Hello, respond with 'OK' if you can hear me.");
+        const text = result.response.text();
+        res.json({ status: "success", response: text, keyLength: (process.env.GEMINI_API_KEY || '').length });
+    } catch (error) {
+        console.error("❌ AI DIAGNOSIS FAILED:", error);
+        res.status(500).json({ 
+            status: "error", 
+            message: error.message, 
+            keyLength: (process.env.GEMINI_API_KEY || '').length,
+            tip: "Check if your API key is restricted or if you have hit your quota."
+        });
+    }
+});
 
 // Lazy init OpenAI
 const getOpenAI = () => {
