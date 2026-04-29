@@ -52,8 +52,16 @@ const InfoPage = () => {
             {/* Content Area */}
             <main className="flex-1 w-full max-w-3xl mx-auto px-8 py-16 z-10 relative">
                 <div className="mb-12">
+                    {pageData.badge && (
+                        <p className="text-xs font-black uppercase tracking-[0.3em] text-indigo-400 mb-4">{pageData.badge}</p>
+                    )}
                     <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-4">{pageData.title}</h1>
-                    <div className="h-1 w-20 bg-indigo-500 rounded-full"></div>
+                    <div className="h-1 w-20 bg-indigo-500 rounded-full mb-6"></div>
+                    {pageData.intro && (
+                        <div className="bg-indigo-500/10 border border-indigo-500/20 rounded-xl px-5 py-4 text-white/80 text-sm leading-relaxed">
+                            <ReactMarkdown>{pageData.intro}</ReactMarkdown>
+                        </div>
+                    )}
                 </div>
 
                 <div className="prose prose-invert prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-indigo-400 hover:prose-a:text-indigo-300 prose-p:leading-relaxed prose-p:text-white/70 prose-strong:text-white">

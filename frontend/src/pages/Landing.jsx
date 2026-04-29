@@ -222,7 +222,7 @@ const Landing = () => {
                                 <li><Link to="/info/privacy-policy" className="text-sm text-white/50 hover:text-white transition-colors">Privacy Policy</Link></li>
                                 <li><Link to="/info/terms-of-service" className="text-sm text-white/50 hover:text-white transition-colors">Terms of Service</Link></li>
                                 <li><Link to="/info/faq" className="text-sm text-white/50 hover:text-white transition-colors">FAQ</Link></li>
-                                <li><a href="mailto:support@chatterverse.com" className="text-sm text-white/50 hover:text-white transition-colors">Contact Us</a></li>
+                                <li><Link to="/info/contact" className="text-sm text-white/50 hover:text-white transition-colors">Contact Us</Link></li>
                             </ul>
                         </div>
                     </div>
