@@ -174,11 +174,13 @@ router.post('/:id', protect, async (req, res) => {
         res.end();
 
     } catch (error) {
-        console.error(error);
+        console.error("🔥 CHAT ERROR:", error);
+        const errorMessage = error.message || 'An unexpected error occurred in the AI engine';
+        
         if (!res.headersSent) {
-            res.status(500).json({ message: error.message });
+            res.status(500).json({ message: errorMessage });
         } else {
-            res.write(`data: ${JSON.stringify({ error: error.message })}\n\n`);
+            res.write(`data: ${JSON.stringify({ error: errorMessage })}\n\n`);
             res.end();
         }
     }
