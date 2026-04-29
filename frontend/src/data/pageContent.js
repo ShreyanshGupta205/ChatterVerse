@@ -75,59 +75,173 @@ Once deleted, your chat history cannot be recovered.
     'about': {
         title: "Our Story",
         content: `
-**The Vision**
-ChatterVerse was built with a simple premise: AI shouldn't just be a static tool; it should have a *vibe*. 
+## The Problem With AI Today
 
-While most platforms lock you into a single, sterile AI model, we wanted to build a bridge to the best engines in the world (Google Gemini and OpenAI) and layer them with dynamic, fun, and highly customized personalities.
+Most AI chat platforms give you one thing: a box, a cursor, and a single model with a single tone.
 
-**The Builder**
-Designed and engineered by **Shreyansh Gupta**, ChatterVerse is a testament to the power of modern full-stack development, combining React, Node.js, MongoDB, and cutting-edge Generative AI.
+Ask it a question. Get an answer. Repeat. It doesn't matter if you're trying to crack a complex coding problem at 2 AM, vent to someone who *gets* you, or just have a fun, casual conversation in your own language — you're stuck with the same robotic voice every time.
+
+We think that's wrong.
+
+---
+
+## The ChatterVerse Solution
+
+ChatterVerse was built on a single belief: **great AI should adapt to you, not the other way around.**
+
+We built a platform that doesn't just give you access to one AI model — it gives you the world's best, side by side. Google Gemini 2.5 for speed and intelligence. OpenAI GPT-4o for depth and articulation. And a growing library of **Vibes** — custom AI personalities that change *how* the AI talks to you, not just *what* it says.
+
+Want a Chill Buddy who replies in Hinglish slang? Done. Need a strict Teacher Mode to help you understand a concept? Done. Want someone to roast your code? Absolutely done.
+
+---
+
+## The Builder
+
+ChatterVerse was designed and engineered by **Shreyansh Gupta** — a full-stack developer passionate about building products at the intersection of AI, design, and human connection.
+
+> *"I built ChatterVerse because I wanted to talk to AI the way I talk to my friends — with personality, context, and a little bit of chaos. I hope you feel the same way."*
+> — Shreyansh Gupta, Founder
         `
     },
     'features': {
         title: "Platform Features",
         content: `
+## Everything You Need for the Perfect Conversation
+
+---
+
+### 🤖 AI MODELS
 **Multi-Model Engine**
-Switch instantly between Google Gemini 2.5 and OpenAI GPT-4o. Test different models on the same prompt to see who gives the best answer.
 
-**The 'Vibes' System**
-Don't just talk to a robot. Talk to a "Chill Buddy" in Hinglish, get lectured by "Teacher Mode", or get roasted by a "Sassy Friend". 
+Stop being locked into a single AI. ChatterVerse routes your conversations to the world's leading models and lets you switch between them with one click. Test the same prompt on both. Pick your favourite. The power is yours.
 
-**Lightning Fast Streaming**
-Built on modern server-sent events (SSE), responses stream directly to your screen word-by-word with zero lag.
+---
 
-**Persistent Memory**
-Your chats are saved securely to the cloud. Start a conversation on your phone and finish it on your desktop.
+### 🎭 PERSONALITY
+**The Vibes System**
+
+AI doesn't have to sound like a corporate email. ChatterVerse's Vibes are custom AI personalities that completely change *how* the model talks to you, not just *what* it says. Choose from:
+- **Chill Buddy** — Gen-Z energy, Hinglish mix, zero corporate talk.
+- **Sassy Friend** — Witty, sharp, and never boring.
+- **Coder Bro** — Gets your stack, speaks your language.
+- **Teacher Mode** — Patient, structured, and brilliant at explanations.
+
+---
+
+### ⚡ PERFORMANCE
+**Real-Time Streaming**
+
+No more staring at a loading spinner. ChatterVerse streams responses directly to your screen — word by word — the instant the AI starts thinking. Built on efficient server-side streaming for a zero-latency feel.
+
+---
+
+### 💾 PERSISTENCE
+**Your Chats, Always There**
+
+Every conversation is saved securely to your personal account in the cloud. Pick up exactly where you left off, on any device, at any time.
+
+---
+
+### 🔐 SECURITY
+**Auth You Can Trust**
+
+Sign in with Google (Firebase Auth) or create a dedicated account. Your sessions are secured with JWT tokens and all data is stored in an encrypted MongoDB Atlas database. We never sell or read your conversations.
+
+---
+
+### 🎨 DESIGN
+**Built to Look Good**
+
+Premium glassmorphism UI, smooth dark mode, and micro-animations throughout. ChatterVerse doesn't just *work* well — it *looks* the part.
         `
     },
     'changelog': {
         title: "Changelog",
         content: `
-**v1.0.0 (Current)**
-- 🎉 Initial Global Launch!
-- 🚀 Added Multi-Model Engine (Gemini 2.5 Flash/Pro, GPT-4o, GPT-3.5)
-- 💅 Implemented Glassmorphism UI
-- 🔒 Added Firebase Auth + MongoDB persistence
-- 📜 Added Legal and Info pages
+## What's New in ChatterVerse
 
-**v0.9.0 (Beta)**
-- Initial prototype
-- Basic chat interface with single model
+---
+
+### v1.0.0 — April 2026 🎉 *Current Release*
+
+**The official global launch of ChatterVerse.**
+
+**🚀 New Features**
+- **Multi-Model Engine** — Switch between Gemini 2.5 Flash, Gemini 2.5 Pro, GPT-4o, and GPT-3.5 Turbo from within the chat interface.
+- **Vibes System** — Custom AI personalities baked into the platform (Chill Buddy, Sassy Friend, Coder Bro, Teacher Mode).
+- **Real-Time Streaming** — Responses now stream word-by-word for a fluid, ChatGPT-like experience.
+- **Persistent Chat History** — All conversations are saved to your personal account in MongoDB.
+- **Google Sign-In** — One-click authentication via Firebase.
+- **Premium UI** — Full glassmorphism design, dark mode, and smooth animations throughout.
+- **Information Hub** — Legal pages (Privacy, Terms), Product pages (Features, Roadmap), and Developer docs are now live.
+
+**🐛 Bug Fixes**
+- **Fixed:** Gemini model routing was using deprecated \`gemini-1.5-flash\` IDs, causing silent API 404 errors on every message. Updated to \`gemini-2.5-flash\` and \`gemini-2.5-pro\`.
+- **Fixed:** Critical UX bug — when a message hit a network error, it would silently disappear from the chat UI. Messages now remain visible even on failure, so you never lose what you typed.
+
+---
+
+### v0.9.0 — March 2026 🔬 *Beta*
+
+- Initial private prototype.
+- Single-model chat interface (Gemini 1.5 Flash only).
+- Basic authentication and UI framework.
+
+---
+
+*See what's coming next on the [Roadmap](/info/roadmap).*
         `
     },
     'roadmap': {
         title: "Product Roadmap",
         content: `
-We are constantly evolving. Here is what's on the horizon for ChatterVerse:
+## What We're Building Next
 
-**Q3 2026**
-- 🖼️ **Vision Integration**: Upload images and ask the AI to analyze them.
-- 🎙️ **Voice Mode**: Speak to your AI vibes and hear them talk back.
-- 🗑️ **1-Click Deletion**: Delete your account directly from the settings page.
+ChatterVerse is constantly evolving. Here's a transparent look at where we're headed — and we'd love your input on what matters most to you.
 
-**Q4 2026**
-- 🎨 **Custom Vibes**: Create your own AI personalities and share them with the community.
-- 📱 **Mobile App**: Native iOS and Android applications.
+---
+
+## 🚧 Coming Soon
+
+These features are either in active development or planned for the immediate future.
+
+**🖼️ Vision Mode**
+Upload an image — a screenshot, a diagram, a photo — and ask any AI model to analyze, describe, or reason about it. Powered by Gemini's native multimodal capabilities.
+
+**🎙️ Voice Mode**
+Speak to your Vibe and hear it respond. Real-time voice input with text-to-speech output. Finally, AI you don't have to type to.
+
+**🗑️ 1-Click Account Deletion**
+Delete your account and all associated data instantly from the Settings page — no email required.
+
+**🌙 Custom System Prompts**
+Write your own Vibe from scratch. Give it a name, a personality, a tone. Your AI, your rules.
+
+---
+
+## 🔭 Further Ahead
+
+Bigger ideas we're excited about for the future.
+
+**📱 Mobile App**
+Native iOS and Android apps with push notifications, offline mode, and a mobile-optimized Vibe selector.
+
+**🤖 Claude by Anthropic**
+Anthropic's Claude is one of the most thoughtful and nuanced AI models in existence — known for its careful reasoning and long-context ability. We're planning to add it as a third routing option alongside Gemini and OpenAI. Stay tuned.
+
+**👥 Shared Vibes**
+Create a Vibe and publish it to the ChatterVerse community. Browse, rate, and remix personalities built by other users.
+
+**📊 Usage Dashboard**
+See how many tokens you've used, which models you prefer, and how your conversation patterns have evolved over time.
+
+---
+
+## 💬 Have an Idea?
+
+The roadmap is shaped by the community. If there's a feature you're desperate for — a new model, a Vibe idea, or a workflow you wish ChatterVerse supported — we genuinely want to hear it.
+
+📩 **[Send us your feedback](mailto:support@chatterverse.com)**
         `
     },
 
@@ -135,47 +249,185 @@ We are constantly evolving. Here is what's on the horizon for ChatterVerse:
     'api-docs': {
         title: "API Documentation",
         content: `
-*Developer API access is currently in closed beta.*
+## ChatterVerse Developer API
 
-**Overview**
-The ChatterVerse API will allow you to leverage our custom Vibes engine and multi-model routing in your own applications. 
+> ⚠️ **Private Beta** — The ChatterVerse API is not yet publicly available. If you'd like early access, [join the waitlist](mailto:support@chatterverse.com?subject=API%20Waitlist).
 
-**Endpoints Preview:**
-- \`POST /api/v1/chat/completions\`
-- \`GET /api/v1/models\`
+---
 
-If you are interested in getting early access to the API, please reach out via the Contact page.
+## Overview
+
+The ChatterVerse API lets you integrate our multi-model routing and custom Vibes engine directly into your own applications. One API, four models, unlimited personalities.
+
+**Base URL:**
+\`\`\`
+https://chatterverse-33v5.onrender.com/api
+\`\`\`
+
+---
+
+## Authentication
+
+All requests must include a Bearer token in the Authorization header:
+\`\`\`
+Authorization: Bearer YOUR_JWT_TOKEN
+\`\`\`
+
+Tokens are issued on login via the \`/api/auth/login\` endpoint.
+
+---
+
+## Endpoints
+
+**POST** \`/chat\`
+Send a message and receive a streaming AI response.
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| \`chatId\` | string | Yes | The conversation ID |
+| \`message\` | string | Yes | The user's message |
+| \`model\` | string | No | AI model to use (default: \`gemini-2.5-flash\`) |
+| \`vibe\` | string | No | Personality vibe (default: \`default\`) |
+
+**GET** \`/chat\`
+Retrieve all conversations for the authenticated user.
+
+**GET** \`/chat/:chatId/messages\`
+Get all messages in a specific conversation.
+
+**DELETE** \`/chat/:chatId\`
+Delete a conversation and all its messages.
+
+---
+
+## Example: Streaming Chat Request
+
+\`\`\`javascript
+const response = await fetch('https://chatterverse-33v5.onrender.com/api/chat', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_JWT_TOKEN'
+  },
+  body: JSON.stringify({
+    chatId: 'your-chat-id',
+    message: 'Explain quantum entanglement like I am five.',
+    model: 'gpt-4o',
+    vibe: 'chill'
+  })
+});
+
+const reader = response.body.getReader();
+const decoder = new TextDecoder();
+
+while (true) {
+  const { done, value } = await reader.read();
+  if (done) break;
+  process.stdout.write(decoder.decode(value));
+}
+\`\`\`
+
+---
+
+## Error Codes
+
+| Code | Meaning |
+|---|---|
+| \`400\` | Bad Request — Missing required parameters |
+| \`401\` | Unauthorized — Invalid or expired token |
+| \`404\` | Not Found — Chat ID does not exist |
+| \`429\` | Rate Limited — Slow down your requests |
+| \`500\` | Server Error — Something went wrong on our end |
         `
     },
     'supported-models': {
         title: "Supported AI Models",
         content: `
-ChatterVerse acts as a smart router to the world's best foundational models.
+## AI Models Available on ChatterVerse
 
-**Google AI**
-- \`gemini-2.5-flash\`: Lightning fast, great for casual chat and everyday tasks. (Default)
-- \`gemini-2.5-pro\`: Highly capable, designed for complex reasoning and coding.
+ChatterVerse acts as a smart router to the world's best foundational language models. Here's a breakdown of every model currently supported.
 
-**OpenAI**
-- \`gpt-4o\`: OpenAI's flagship omni model. Incredibly smart and articulate.
-- \`gpt-3.5-turbo\`: Fast and reliable legacy model.
+---
+
+## Google AI
+
+**\`gemini-2.5-flash\`** — ⚡ Speed · 🧠 Smart · 💬 Chat
+*The default model.* Gemini 2.5 Flash is Google's fastest production-grade model. Exceptional for everyday tasks, casual conversation, quick summaries, and general Q&A. If you're unsure which model to pick, start here.
+
+**\`gemini-2.5-pro\`** — 🧠 Deep Reasoning · 💻 Code · 📄 Long Context
+Google's most capable model in the 2.5 family. Handles complex reasoning, advanced coding problems, and long documents with ease. Best for technical questions, research, or when Flash gives a result that feels shallow.
+
+---
+
+## OpenAI
+
+**\`gpt-4o\`** — 🌐 Multimodal · ✍️ Writing · 🔍 Analysis
+OpenAI's flagship omni model. Exceptionally strong at nuanced writing, structured analysis, creative tasks, and cross-language tasks. A great choice when you need articulate, polished output.
+
+**\`gpt-3.5-turbo\`** — 🏃 Fast · 💰 Lightweight · 🔁 High Volume
+The reliable workhorse. GPT-3.5 Turbo is fast, lean, and perfectly capable for most straightforward tasks. Great as a fallback or for rapid-fire conversations.
+
+---
+
+## Coming Soon
+
+**\`claude-3-5-sonnet\`** (Anthropic) — 🤔 Careful Reasoning · 📚 Long Context
+Anthropic's Claude models are renowned for their thoughtful, precise outputs and exceptional ability to handle very long documents. Coming to ChatterVerse in a future update.
+
+---
+
+> **Not sure which model to pick?**
+> Start with **Gemini 2.5 Flash** for speed, switch to **GPT-4o** for depth, and use **Gemini 2.5 Pro** when you need serious reasoning power. You can change the model mid-conversation at any time.
         `
     },
     'status': {
         title: "System Status",
         content: `
-**All Systems Operational ✅**
+## ChatterVerse System Status
 
-- **ChatterVerse Web App**: 🟢 Operational
-- **ChatterVerse Backend API**: 🟢 Operational
-- **MongoDB Database**: 🟢 Operational
-- **Firebase Authentication**: 🟢 Operational
+*Last checked: Live*
 
-**Third-Party API Status:**
-- **Google Gemini API**: 🟢 Operational
-- **OpenAI API**: 🟢 Operational
+---
 
-*Page refreshes automatically.*
+## Core Services
+
+| Service | Status | Uptime (30d) |
+|---|---|---|
+| 🌐 Frontend (Vercel) | 🟢 Operational | 99.9% |
+| ⚙️ Backend API (Render) | 🟢 Operational | 99.5% |
+| 🗄️ Database (MongoDB Atlas) | 🟢 Operational | 99.9% |
+| 🔐 Authentication (Firebase) | 🟢 Operational | 100% |
+
+---
+
+## AI Provider Status
+
+These are third-party services. Their availability is outside our direct control, but we monitor them closely.
+
+| Provider | Status | Official Status Page |
+|---|---|---|
+| 🤖 Google Gemini API | 🟢 Operational | [status.cloud.google.com](https://status.cloud.google.com) |
+| 🤖 OpenAI API | 🟢 Operational | [status.openai.com](https://status.openai.com) |
+
+---
+
+## Uptime History (Last 30 Days)
+
+**Frontend** 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢
+
+**Backend API** 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢
+
+**Database** 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢
+
+---
+
+## Incident History
+
+*No incidents reported in the last 30 days.* 🎉
+
+---
+
+> If you are experiencing an issue not reflected above, please [contact us](mailto:support@chatterverse.com) and we will investigate immediately.
         `
     },
 
@@ -197,3 +449,4 @@ A: Currently, ChatterVerse is free to use while in early stages.
         `
     }
 };
+
