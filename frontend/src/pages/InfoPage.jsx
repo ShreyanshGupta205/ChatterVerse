@@ -64,10 +64,14 @@ const InfoPage = () => {
                     )}
                 </div>
 
-                <div className="prose prose-invert prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-indigo-400 hover:prose-a:text-indigo-300 prose-p:leading-relaxed prose-p:text-white/70 prose-strong:text-white">
-                    <ReactMarkdown>
-                        {pageData.content}
-                    </ReactMarkdown>
+                <div className="prose prose-invert prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-indigo-400 hover:prose-a:text-indigo-300 prose-p:leading-relaxed prose-p:text-white/70 prose-strong:text-white prose-li:text-white/70">
+                    {pageData.component ? (
+                        pageData.component
+                    ) : (
+                        <ReactMarkdown>
+                            {pageData.content}
+                        </ReactMarkdown>
+                    )}
                 </div>
             </main>
 
