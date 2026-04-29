@@ -100,7 +100,7 @@ router.post('/', protect, async (req, res) => {
         const newChat = new Chat({
             userId: req.user._id,
             mood: mood || 'Chill Buddy',
-            model: model || 'gemini-1.5-flash',
+            model: model || 'gemini-2.5-flash',
             messages: []
         });
         await newChat.save();
@@ -132,17 +132,11 @@ router.post('/:id', protect, async (req, res) => {
         if (chat.userId.toString() !== req.user._id.toString()) return res.status(401).json({ message: 'Unauthorized' });
 
         const systemPrompt = getSystemPrompt(mood || chat.mood);
-        let activeModel = model || chat.model || 'gemini-1.5-flash';
-
-        // Auto-migrate deprecated/hallucinated IDs from old database records
-        if (activeModel.includes('2.5')) {
-            console.log(`🔄 Migrating deprecated model ID: ${activeModel} -> gemini-1.5-flash`);
-            activeModel = 'gemini-1.5-flash';
-        }
+        const activeModel = model || chat.model || 'gemini-2.5-flash';
 
         // Update chat properties if changed
         if (mood) chat.mood = mood;
-        chat.model = activeModel; // Always sync back the sanitized model ID
+        if (model) chat.model = model;
 
         chat.messages.push({ role: 'user', content: message });
 
@@ -254,12 +248,10 @@ router.post('/:id/regenerate', protect, async (req, res) => {
         if (chat.messages.length === 0) return res.status(400).json({ message: 'No messages to regenerate' });
 
         const systemPrompt = getSystemPrompt(mood || chat.mood);
-        let activeModel = model || chat.model || 'gemini-1.5-flash';
-
-        if (activeModel.includes('2.5')) activeModel = 'gemini-1.5-flash';
+        const activeModel = model || chat.model || 'gemini-2.5-flash';
 
         if (mood) chat.mood = mood;
-        chat.model = activeModel;
+        if (model) chat.model = model;
 
         res.setHeader('Content-Type', 'text/event-stream');
         res.setHeader('Cache-Control', 'no-cache');
@@ -340,7 +332,7 @@ router.post('/:id/title', protect, async (req, res) => {
         if (!firstUserMessage) return res.json({ title: chat.title });
 
         const genAI = getGenAI();
-        const genModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const genModel = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
         const prompt = `Generate a very short, maximum 4-word catchy title for a chat that starts with this user message: "${firstUserMessage}". The title must represent the topic. Do not use quotes around the output.`;
         
