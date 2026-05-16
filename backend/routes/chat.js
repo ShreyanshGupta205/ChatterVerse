@@ -124,6 +124,7 @@ router.get('/', protect, async (req, res) => {
 
 // Send message to chat
 router.post('/:id', protect, async (req, res) => {
+    console.log(`📩 CHAT REQ: ${req.params.id} | Model: ${req.body.model} | Mood: ${req.body.mood}`);
     try {
         const { message, mood, model } = req.body;
         const chat = await Chat.findById(req.params.id);
@@ -134,12 +135,14 @@ router.post('/:id', protect, async (req, res) => {
         const systemPrompt = getSystemPrompt(mood || chat.mood);
         let activeModel = model || chat.model || 'gemini-flash-latest';
 
-        // FORCE MIGRATION: If the database or request has any '1.5' or legacy reference, upgrade it to '2.5'
-        const legacyModels = ['1.5', 'gemini-pro', 'gemini-ultra'];
-        if (legacyModels.some(m => activeModel.includes(m))) {
-            console.log(`🚀 UPGRADING legacy model ID: ${activeModel} -> gemini-flash-latest`);
-            activeModel = 'gemini-flash-latest';
+        // FORCE MIGRATION: Ensure we use the latest valid model IDs
+        const legacyModels = ['1.5', 'pro', 'ultra', 'flash-latest', '2.5'];
+        if (!activeModel || legacyModels.some(m => activeModel.includes(m))) {
+            console.log(`🚀 UPGRADING model ID: ${activeModel} -> gemini-2.0-flash`);
+            activeModel = 'gemini-2.0-flash';
         }
+
+        console.log(`🤖 USING MODEL: ${activeModel}`);
 
         // Update chat properties
         if (mood) chat.mood = mood;

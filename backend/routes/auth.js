@@ -49,7 +49,7 @@ router.post('/sync/init', async (req, res) => {
 
         const https = require('https');
         const idToken = authHeader.split(' ')[1];
-        const FIREBASE_WEB_API_KEY = process.env.FIREBASE_WEB_API_KEY || 'AIzaSyC8w2ItFdZGGxrU9SNx0YttpDZOsciTFjA';
+        const FIREBASE_WEB_API_KEY = process.env.FIREBASE_WEB_API_KEY;
 
         // Verify token via Firebase Identity Toolkit
         const firebaseUser = await new Promise((resolve, reject) => {

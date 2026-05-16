@@ -39,6 +39,7 @@ const useChatStore = create((set, get) => ({
   error: null,
   abortController: null,
   isSpeaking: false,
+  voices: [],
 
 
   fetchChats: async () => {
@@ -205,6 +206,37 @@ const useChatStore = create((set, get) => ({
   },
 
   toggleTTS: (isSpeaking) => set({ isSpeaking }),
+
+  speak: (text) => {
+    if (!window.speechSynthesis) return;
+    
+    // Stop any current speech
+    window.speechSynthesis.cancel();
+    
+    if (get().isSpeaking) {
+      set({ isSpeaking: false });
+      return;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    
+    // Try to find a good English voice
+    const voices = window.speechSynthesis.getVoices();
+    const premiumVoice = voices.find(v => 
+        (v.name.includes('Google') || v.name.includes('Premium')) && v.lang.startsWith('en')
+    ) || voices.find(v => v.lang.startsWith('en'));
+    
+    if (premiumVoice) utterance.voice = premiumVoice;
+    
+    utterance.rate = 1.1;
+    utterance.pitch = 1;
+    
+    utterance.onstart = () => set({ isSpeaking: true });
+    utterance.onend = () => set({ isSpeaking: false });
+    utterance.onerror = () => set({ isSpeaking: false });
+
+    window.speechSynthesis.speak(utterance);
+  },
 
 
   regenerateMessage: async (mood) => {

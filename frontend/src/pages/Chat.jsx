@@ -27,7 +27,7 @@ const BotAvatar = ({ isThinking }) => (
 );
 
 const ChatPage = () => {
-    const { chats, currentChatId, sendMessage, regenerateMessage, createChat, fetchChats, loading, error, mood, setMood, selectedModel, setModel, stopGeneration } = useChatStore();
+    const { chats, currentChatId, sendMessage, regenerateMessage, createChat, fetchChats, loading, error, mood, setMood, selectedModel, setModel, stopGeneration, speak, isSpeaking } = useChatStore();
     const [input, setInput] = useState('');
     const [showMoods, setShowMoods] = useState(false);
     const [showModels, setShowModels] = useState(false);
@@ -151,10 +151,10 @@ const ChatPage = () => {
                           className="absolute top-full right-0 mt-2 w-48 glass-dark rounded-2xl p-2 border border-white/10 shadow-2xl flex flex-col gap-1"
                         >
                           {[
-                              { id: 'gemini-flash-latest', name: 'Gemini Flash' },
-                              { id: 'gemini-2.5-pro', name: 'Gemini 2.5 Pro' },
-                              { id: 'gpt-4o', name: 'GPT-4o' },
-                              { id: 'gpt-3.5-turbo', name: 'GPT-3.5 Turbo' }
+                               { id: 'gemini-2.0-flash', name: 'Gemini 2.0 Flash' },
+                               { id: 'gemini-1.5-flash', name: 'Gemini 1.5 Flash' },
+                               { id: 'gpt-4o', name: 'GPT-4o' },
+                               { id: 'gpt-4o-mini', name: 'GPT-4o Mini' }
                           ].map((m) => (
                             <button
                               key={m.id}
@@ -256,6 +256,8 @@ const ChatPage = () => {
                                         isLast={i === activeChat.messages.length - 1}
                                         isStreaming={loading && i === activeChat.messages.length - 1}
                                         onRegenerate={handleRegenerate}
+                                        onSpeak={() => speak(msg.content)}
+                                        isSpeaking={isSpeaking}
                                     />
                                 ))}
                             </AnimatePresence>

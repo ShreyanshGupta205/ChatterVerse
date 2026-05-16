@@ -6,24 +6,9 @@ import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
-const Message = ({ role, content, onRegenerate, isLast, isStreaming }) => {
+const Message = ({ role, content, onRegenerate, isLast, isStreaming, onSpeak, isSpeaking }) => {
   const isAI = role === 'assistant';
   const [copiedCode, setCopiedCode] = useState(null);
-
-  const handleSpeak = () => {
-      if (window.speechSynthesis.speaking) {
-          window.speechSynthesis.cancel();
-      } else {
-          // Quick strip markdown for speech
-          const textToSpeak = content.replace(/[#*`_]/g, '');
-          const utterance = new SpeechSynthesisUtterance(textToSpeak);
-          // Try to find a slightly better voice if available, else default
-          const voices = window.speechSynthesis.getVoices();
-          const preferredVoice = voices.find(v => v.lang.includes('en') && v.name.includes('Google'));
-          if (preferredVoice) utterance.voice = preferredVoice;
-          window.speechSynthesis.speak(utterance);
-      }
-  };
 
   return (
     <motion.div
@@ -110,11 +95,11 @@ const Message = ({ role, content, onRegenerate, isLast, isStreaming }) => {
                         Copy
                     </button>
                     <button 
-                        onClick={handleSpeak}
-                        className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest hover:text-brand-primary active:scale-90 transition-all" 
+                        onClick={onSpeak}
+                        className={`flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest active:scale-90 transition-all ${isSpeaking ? 'text-brand-primary animate-pulse' : 'hover:text-brand-primary'}`} 
                     >
-                        <Volume2 size={12} />
-                        Read
+                        <Volume2 size={12} className={isSpeaking ? 'fill-current' : ''} />
+                        {isSpeaking ? 'Stop' : 'Read'}
                     </button>
                     {isLast && (
                         <button 

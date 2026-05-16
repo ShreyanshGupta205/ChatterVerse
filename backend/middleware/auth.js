@@ -8,7 +8,7 @@ async function verifyFirebaseToken(idToken) {
         const FIREBASE_PROJECT_ID = process.env.FIREBASE_PROJECT_ID || 'uplift-1f94a';
         const options = {
             hostname: 'identitytoolkit.googleapis.com',
-            path: `/v1/accounts:lookup?key=${process.env.FIREBASE_WEB_API_KEY || 'AIzaSyC8w2ItFdZGGxrU9SNx0YttpDZOsciTFjA'}`,
+            path: `/v1/accounts:lookup?key=${process.env.FIREBASE_WEB_API_KEY}`,
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
         };
