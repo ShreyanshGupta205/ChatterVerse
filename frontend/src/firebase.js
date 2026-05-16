@@ -1,17 +1,19 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC8w2ItFdZGGxrU9SNx0YttpDZOsciTFjA",
-  authDomain: "uplift-1f94a.firebaseapp.com",
-  projectId: "uplift-1f94a",
-  storageBucket: "uplift-1f94a.firebasestorage.app",
-  messagingSenderId: "1082455994957",
-  appId: "1:1082455994957:web:0cb7b32d4877790e8f6204",
-  measurementId: "G-KM1Z4TXEXD"
+  apiKey: "AIzaSyAuITysevmgb3Aiz6gr-KlP6KNu9jrfCVY",
+  authDomain: "chatterverse-32255.firebaseapp.com",
+  projectId: "chatterverse-32255",
+  storageBucket: "chatterverse-32255.firebasestorage.app",
+  messagingSenderId: "968968058926",
+  appId: "1:968968058926:web:37e2fcd279db51743c47bf",
+  measurementId: "G-50B7ZL7NXS"
 };
 
 const app = initializeApp(firebaseConfig);
+export const analytics = getAnalytics(app);
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
 
