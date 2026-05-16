@@ -5,7 +5,7 @@ async function testAll() {
     const key = process.env.GEMINI_API_KEY;
     console.log(`Testing key: ${key}`);
     const genAI = new GoogleGenerativeAI(key);
-    const models = ["gemini-1.5-flash", "gemini-1.5-pro", "gemini-pro", "models/gemini-1.5-flash"];
+    const models = ["gemini-flash-latest", "gemini-2.5-pro", "gemini-pro", "models/gemini-flash-latest"];
 
     for (const modelName of models) {
         console.log(`\n--- Testing ${modelName} ---`);
