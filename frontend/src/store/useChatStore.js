@@ -106,7 +106,10 @@ const useChatStore = create((set, get) => ({
           signal: abortController.signal
       });
 
-      if (!response.ok) throw new Error('API Error');
+      if (!response.ok) {
+          const errData = await response.json().catch(() => ({}));
+          throw new Error(errData.message || 'API Error');
+      }
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder('utf-8');
@@ -174,8 +177,21 @@ const useChatStore = create((set, get) => ({
       }
 
     } catch (error) {
+      const errorMessage = error.name === 'AbortError' ? null : (error.message || 'Failed to send message');
+      
+      if (errorMessage) {
+          set((state) => ({
+              chats: state.chats.map(c => {
+                  if (c._id === chatId) {
+                      return { ...c, messages: [...c.messages, { role: 'assistant', content: `🚨 ${errorMessage}` }] };
+                  }
+                  return c;
+              })
+          }));
+      }
+
       set({ 
-        error: error.name === 'AbortError' ? null : (error.response?.data?.message || 'Failed to send message'), 
+        error: errorMessage, 
         loading: false,
         abortController: null
       });
@@ -269,7 +285,10 @@ const useChatStore = create((set, get) => ({
             body: JSON.stringify({ mood, model: get().selectedModel })
         });
 
-        if (!response.ok) throw new Error('API Error');
+        if (!response.ok) {
+            const errData = await response.json().catch(() => ({}));
+            throw new Error(errData.message || 'API Error');
+        }
 
         const reader = response.body.getReader();
         const decoder = new TextDecoder('utf-8');
@@ -328,8 +347,20 @@ const useChatStore = create((set, get) => ({
         }
         set({ loading: false });
     } catch (error) {
-        set({ error: error.response?.data?.message || 'Failed to regenerate', loading: false });
-        // We could revert here, but fetchChats would be safer to restore state.
+        const errorMessage = error.name === 'AbortError' ? null : (error.message || 'Failed to regenerate');
+        
+        if (errorMessage) {
+            set((state) => ({
+                chats: state.chats.map(c => {
+                    if (c._id === chatId) {
+                        return { ...c, messages: [...c.messages, { role: 'assistant', content: `🚨 ${errorMessage}` }] };
+                    }
+                    return c;
+                })
+            }));
+        }
+
+        set({ error: errorMessage, loading: false });
     }
   },
 
