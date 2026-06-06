@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
 import { Sparkles, ArrowRight, Cpu, Layers, Lock, X } from 'lucide-react';
+import useAuthStore from '../store/useAuthStore';
 import logo from '../assets/logo.png';
 
 const Landing = () => {
