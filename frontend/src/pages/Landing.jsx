@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
 import { Sparkles, ArrowRight, Cpu, Layers, Lock, X } from 'lucide-react';
-import useAuthStore from '../store/useAuthStore';
+import logo from '../assets/logo.png';
 
 const Landing = () => {
     const navigate = useNavigate();
@@ -26,9 +26,7 @@ const Landing = () => {
             {/* Navbar (Minimal) */}
             <nav className="w-full max-w-7xl mx-auto px-8 py-8 flex items-center justify-between z-20">
                 <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center">
-                        <Sparkles size={18} className="text-white" />
-                    </div>
+                    <img src={logo} alt="ChatterVerse Logo" className="w-8 h-8 object-contain" />
                     <span className="text-xl font-black tracking-tighter">ChatterVerse</span>
                 </div>
                 <button 
@@ -175,9 +173,7 @@ const Landing = () => {
                         {/* Brand Column */}
                         <div className="col-span-2 md:col-span-2">
                             <div className="flex items-center gap-2 mb-4">
-                                <div className="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center">
-                                    <Sparkles size={16} className="text-white" />
-                                </div>
+                                <img src={logo} alt="ChatterVerse Logo" className="w-8 h-8 object-contain" />
                                 <span className="text-xl font-black tracking-tighter">ChatterVerse</span>
                             </div>
                             <p className="text-white/40 text-sm leading-relaxed max-w-xs mb-6">

@@ -4,6 +4,8 @@ import { Sparkles, Bell, Menu } from 'lucide-react';
 import { motion } from 'framer-motion';
 import ProfileModal from './ProfileModal';
 
+import logo from '../assets/logo.png';
+
 const TopNav = ({ onMenuToggle }) => {
   const { user } = useAuthStore();
   const [showProfile, setShowProfile] = useState(false);
@@ -21,9 +23,7 @@ const TopNav = ({ onMenuToggle }) => {
           </button>
 
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center md:hidden">
-              <Sparkles size={16} className="text-white" />
-            </div>
+            <img src={logo} alt="ChatterVerse Logo" className="w-8 h-8 object-contain md:hidden" />
             <span className="text-lg font-black tracking-tighter md:hidden">ChatterVerse</span>
           </div>
 

@@ -4,6 +4,7 @@ import { LogOut, Plus, Book, Code, Sparkles as SparkleIcon, Flame, Trash2, Searc
 import useChatStore from '../store/useChatStore';
 import useAuthStore from '../store/useAuthStore';
 import { useNavigate } from 'react-router-dom';
+import logo from '../assets/logo.png';
 
 const Sidebar = ({ isOpen, onClose }) => {
     const { chats, currentChatId, setCurrentChat, createChat, mood, deleteChat } = useChatStore();
@@ -55,6 +56,12 @@ const Sidebar = ({ isOpen, onClose }) => {
 
     const sidebarContent = (
         <div className="w-72 h-[100dvh] bg-[#0d0d0f] border-r border-white/5 flex flex-col z-30">
+            {/* Sidebar Branding */}
+            <div className="px-6 pt-6 pb-2 flex items-center gap-3">
+                <img src={logo} alt="ChatterVerse Logo" className="w-8 h-8 object-contain" />
+                <span className="text-lg font-black tracking-tighter text-white">ChatterVerse</span>
+            </div>
+
             {/* Header / New Chat */}
             <div className="p-4 flex items-center gap-2">
                 <button

@@ -4,6 +4,8 @@ import { Sparkles, ArrowLeft } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { pageContent } from '../data/pageContent';
 
+import logo from '../assets/logo.png';
+
 const InfoPage = () => {
     const { pageId } = useParams();
     const navigate = useNavigate();
@@ -35,9 +37,7 @@ const InfoPage = () => {
             {/* Navbar Minimal */}
             <nav className="w-full max-w-4xl mx-auto px-8 py-8 flex items-center justify-between z-20 relative border-b border-white/5">
                 <Link to="/" className="flex items-center gap-2 group cursor-pointer">
-                    <div className="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center group-hover:bg-indigo-400 transition-colors">
-                        <Sparkles size={18} className="text-white" />
-                    </div>
+                    <img src={logo} alt="ChatterVerse Logo" className="w-8 h-8 object-contain" />
                     <span className="text-xl font-black tracking-tighter">ChatterVerse</span>
                 </Link>
                 <button 

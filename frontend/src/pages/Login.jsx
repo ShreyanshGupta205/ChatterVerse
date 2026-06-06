@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
-import { LogIn, Mail, Lock, Sparkles } from 'lucide-react';
+import { LogIn, Mail, Lock } from 'lucide-react';
 import useAuthStore from '../store/useAuthStore';
+import logo from '../assets/logo.png';
 
 const GoogleIcon = () => (
   <svg viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg">
@@ -40,10 +41,8 @@ const Login = () => {
             >
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-purple-500 opacity-50" />
                 
-                <div className="flex flex-col items-center mb-10">
-                    <div className="w-12 h-12 bg-indigo-500/10 rounded-2xl flex items-center justify-center mb-6 border border-indigo-500/10">
-                        <Sparkles size={24} className="text-indigo-400" />
-                    </div>
+                <div className="flex flex-col items-center mb-8">
+                    <img src={logo} alt="ChatterVerse Logo" className="w-16 h-16 object-contain mb-4" />
                     <h2 className="text-3xl font-black text-white/90 tracking-tighter">Welcome Back</h2>
                     <p className="text-sm text-white/30 font-medium">Continue your story in the verse</p>
                 </div>
