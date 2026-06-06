@@ -118,105 +118,111 @@ const ChatPage = () => {
     };
 
     return (
-        <div data-theme={mood} className="flex h-screen w-screen bg-[#09090b] text-[#fafafa] overflow-hidden transition-colors duration-500">
+        <div data-theme={mood} className="flex h-[100dvh] w-screen bg-[#09090b] text-[#fafafa] overflow-hidden transition-colors duration-500">
             <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
             <main className="flex-1 flex flex-col items-center relative overflow-hidden h-full bg-[#09090b]">
                 <TopNav onMenuToggle={() => setSidebarOpen(true)} />
                 
-                {/* Top Actions (Mood & Model Dropdowns) */}
-                <div className="absolute top-16 right-8 z-40 flex gap-4">
-                  {/* Model Dropdown */}
-                  <div className="relative">
-                    <button 
-                      onClick={() => setShowModels(!showModels)}
-                      className="flex items-center gap-2 px-4 py-2 glass rounded-xl text-xs font-bold border border-white/5 hover:border-white/20 transition-all text-white/60"
-                    >
-                      <Cpu size={14} className="text-emerald-400" />
-                      Model: <span className="text-white">
-                        {selectedModel === 'gemini-flash-latest' ? 'Gemini Flash' : 
-                         selectedModel === 'gemini-2.0-flash' ? 'Gemini 2.0 Flash' : 
-                         selectedModel === 'gpt-4o' ? 'GPT-4o' : 
-                         selectedModel === 'gpt-3.5-turbo' ? 'GPT-3.5' : selectedModel}
-                      </span>
-                      <ChevronDown size={14} className={`transition-transform ${showModels ? 'rotate-180' : ''}`} />
-                    </button>
+                {/* Sub-Header Toolbar (Mood & Model Dropdowns) */}
+                <div className="w-full bg-[#09090b]/80 backdrop-blur-md border-b border-white/5 py-3 px-4 sm:px-6 md:px-8 flex flex-wrap items-center justify-between gap-3 z-30">
+                    <div className="text-xs text-white/40 font-bold uppercase tracking-widest hidden sm:block">
+                        {activeChat ? (activeChat.title || 'Conversation') : 'New Session'}
+                    </div>
                     
-                    <AnimatePresence mode="wait">
-                      {showModels && (
-                        <motion.div 
-                          initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                          className="absolute top-full right-0 mt-2 w-48 glass-dark rounded-2xl p-2 border border-white/10 shadow-2xl flex flex-col gap-1"
-                        >
-                          {[
-                               { id: 'gemini-2.0-flash', name: 'Gemini 2.0 Flash' },
-                               { id: 'gemini-1.5-flash', name: 'Gemini 1.5 Flash' },
-                               { id: 'gpt-4o', name: 'GPT-4o' },
-                               { id: 'gpt-4o-mini', name: 'GPT-4o Mini' }
-                          ].map((m) => (
-                            <button
-                              key={m.id}
-                              onClick={() => { setModel(m.id); setShowModels(false); }}
-                              className={`w-full text-left px-4 py-2 rounded-xl text-xs font-medium transition-all ${selectedModel === m.id ? 'bg-emerald-500/20 text-emerald-400' : 'hover:bg-white/5 text-white/40 hover:text-white/80'}`}
+                    <div className="flex items-center flex-wrap gap-2 sm:gap-3 ml-auto">
+                        {/* Model Dropdown */}
+                        <div className="relative">
+                            <button 
+                                onClick={() => setShowModels(!showModels)}
+                                className="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 glass rounded-xl text-xs font-bold border border-white/5 hover:border-white/20 transition-all text-white/60"
                             >
-                              {m.name}
+                                <Cpu size={14} className="text-emerald-400" />
+                                Model: <span className="text-white">
+                                    {selectedModel === 'gemini-flash-latest' ? 'Gemini Flash' : 
+                                     selectedModel === 'gemini-2.0-flash' ? 'Gemini 2.0 Flash' : 
+                                     selectedModel === 'gpt-4o' ? 'GPT-4o' : 
+                                     selectedModel === 'gpt-3.5-turbo' ? 'GPT-3.5' : selectedModel}
+                                </span>
+                                <ChevronDown size={14} className={`transition-transform ${showModels ? 'rotate-180' : ''}`} />
                             </button>
-                          ))}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
+                            
+                            <AnimatePresence mode="wait">
+                                {showModels && (
+                                    <motion.div 
+                                        initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                                        exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                                        className="absolute top-full right-0 mt-2 w-48 glass-dark rounded-2xl p-2 border border-white/10 shadow-2xl flex flex-col gap-1 z-50"
+                                    >
+                                        {[
+                                             { id: 'gemini-2.0-flash', name: 'Gemini 2.0 Flash' },
+                                             { id: 'gemini-1.5-flash', name: 'Gemini 1.5 Flash' },
+                                             { id: 'gpt-4o', name: 'GPT-4o' },
+                                             { id: 'gpt-4o-mini', name: 'GPT-4o Mini' }
+                                        ].map((m) => (
+                                            <button
+                                                key={m.id}
+                                                onClick={() => { setModel(m.id); setShowModels(false); }}
+                                                className={`w-full text-left px-4 py-2 rounded-xl text-xs font-medium transition-all ${selectedModel === m.id ? 'bg-emerald-500/20 text-emerald-400' : 'hover:bg-white/5 text-white/40 hover:text-white/80'}`}
+                                            >
+                                                {m.name}
+                                            </button>
+                                        ))}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
 
-                  {/* Mood Dropdown (Professional Refinement) */}
-                  <div className="relative">
-                    <button 
-                      onClick={() => setShowMoods(!showMoods)}
-                      className="flex items-center gap-2 px-4 py-2 glass rounded-xl text-xs font-bold border border-white/5 hover:border-white/20 transition-all text-white/60"
-                    >
-                      Vibe: <span className="text-indigo-400">{mood}</span>
-                      <ChevronDown size={14} className={`transition-transform ${showMoods ? 'rotate-180' : ''}`} />
-                    </button>
-                    
-                    <AnimatePresence mode="wait">
-                      {showMoods && (
-                        <motion.div 
-                          initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                          className="absolute top-full right-0 mt-2 w-48 glass-dark rounded-2xl p-2 border border-white/10 shadow-2xl flex flex-col gap-1"
-                        >
-                          {['Chill Buddy', 'Teacher Mode', 'Sassy Friend', 'Coder Bro'].map((m) => (
-                            <button
-                              key={m}
-                              onClick={() => { setMood(m); setShowMoods(false); }}
-                              className={`w-full text-left px-4 py-2 rounded-xl text-xs font-medium transition-all ${mood === m ? 'bg-brand-primary/20 text-brand-primary' : 'hover:bg-white/5 text-white/40 hover:text-white/80'}`}
+                        {/* Mood Dropdown (Professional Refinement) */}
+                        <div className="relative">
+                            <button 
+                                onClick={() => setShowMoods(!showMoods)}
+                                className="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 glass rounded-xl text-xs font-bold border border-white/5 hover:border-white/20 transition-all text-white/60"
                             >
-                              {m}
+                                Vibe: <span className="text-indigo-400">{mood}</span>
+                                <ChevronDown size={14} className={`transition-transform ${showMoods ? 'rotate-180' : ''}`} />
                             </button>
-                          ))}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
+                            
+                            <AnimatePresence mode="wait">
+                                {showMoods && (
+                                    <motion.div 
+                                        initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                                        exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                                        className="absolute top-full right-0 mt-2 w-48 glass-dark rounded-2xl p-2 border border-white/10 shadow-2xl flex flex-col gap-1 z-50"
+                                    >
+                                        {['Chill Buddy', 'Teacher Mode', 'Sassy Friend', 'Coder Bro'].map((m) => (
+                                            <button
+                                                key={m}
+                                                onClick={() => { setMood(m); setShowMoods(false); }}
+                                                className={`w-full text-left px-4 py-2 rounded-xl text-xs font-medium transition-all ${mood === m ? 'bg-brand-primary/20 text-brand-primary' : 'hover:bg-white/5 text-white/40 hover:text-white/80'}`}
+                                            >
+                                                {m}
+                                            </button>
+                                        ))}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
 
-                  {/* Export Button */}
-                  {activeChat && (
-                    <button 
-                      onClick={handleExport}
-                      className="flex items-center gap-2 px-4 py-2 glass rounded-xl text-xs font-bold border border-white/5 hover:border-white/20 transition-all text-white/60 hover:text-white"
-                    >
-                      <Download size={14} />
-                      Export .md
-                    </button>
-                  )}
+                        {/* Export Button */}
+                        {activeChat && (
+                            <button 
+                                onClick={handleExport}
+                                className="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 glass rounded-xl text-xs font-bold border border-white/5 hover:border-white/20 transition-all text-white/60 hover:text-white"
+                            >
+                                <Download size={14} />
+                                <span className="hidden sm:inline">Export .md</span>
+                            </button>
+                        )}
+                    </div>
                 </div>
 
-                {/* Chat Area (Absolute Positioning for Stability) */}
-                <div className="flex-1 w-full max-w-3xl flex flex-col relative h-full min-h-0">
+                {/* Chat Area (Flex layout for viewport stability) */}
+                <div className="flex-1 w-full max-w-3xl flex flex-col relative min-h-0 overflow-hidden">
                     {!activeChat ? (
-                        <div className="flex-1 flex flex-col items-center justify-center p-8 text-center animate-in fade-in zoom-in duration-500">
+                        <div className="flex-1 flex flex-col items-center justify-center p-6 text-center animate-in fade-in zoom-in duration-500 overflow-y-auto">
                             {error ? (
                                 <div className="glass-dark border border-red-500/20 p-6 rounded-3xl max-w-sm">
                                     <div className="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -245,7 +251,7 @@ const ChatPage = () => {
                     ) : (
                         <div 
                             ref={scrollRef}
-                            className="flex-1 overflow-y-auto px-4 md:px-8 pt-20 custom-scrollbar space-y-6 pb-40"
+                            className="flex-1 overflow-y-auto px-4 md:px-8 pt-6 custom-scrollbar space-y-6 pb-6"
                         >
                             <AnimatePresence mode="popLayout">
                                 {activeChat.messages.map((msg, i) => (
@@ -265,9 +271,9 @@ const ChatPage = () => {
                         </div>
                     )}
 
-                    {/* Floating Pill Input Bar */}
-                    <div className="absolute inset-x-0 bottom-0 p-6 md:p-10 pointer-events-none">
-                        <div className="max-w-2xl mx-auto pointer-events-auto">
+                    {/* Chat Input Bar */}
+                    <div className="w-full p-4 sm:p-6 bg-gradient-to-t from-[#09090b] via-[#09090b] to-transparent">
+                        <div className="max-w-2xl mx-auto">
                             <form 
                                 onSubmit={handleSend}
                                 className="glass-dark rounded-full p-2 flex items-center gap-2 border border-white/10 shadow-2xl transition-all focus-within:border-indigo-500/50"

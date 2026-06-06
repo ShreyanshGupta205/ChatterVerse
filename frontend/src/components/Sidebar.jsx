@@ -54,7 +54,7 @@ const Sidebar = ({ isOpen, onClose }) => {
     };
 
     const sidebarContent = (
-        <div className="w-72 h-full bg-[#0d0d0f] border-r border-white/5 flex flex-col z-30">
+        <div className="w-72 h-[100dvh] bg-[#0d0d0f] border-r border-white/5 flex flex-col z-30">
             {/* Header / New Chat */}
             <div className="p-4 flex items-center gap-2">
                 <button
@@ -185,7 +185,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                             animate={{ x: 0 }}
                             exit={{ x: -288 }}
                             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                            className="md:hidden fixed top-0 left-0 z-50 h-full"
+                            className="md:hidden fixed top-0 left-0 z-50 h-[100dvh]"
                         >
                             {sidebarContent}
                         </motion.div>

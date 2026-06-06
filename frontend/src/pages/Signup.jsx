@@ -32,11 +32,11 @@ const Signup = () => {
     };
 
     return (
-        <div className="min-h-screen bg-[#09090b] flex items-center justify-center p-6">
+        <div className="min-h-screen bg-[#09090b] flex items-center justify-center p-4 sm:p-6">
             <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="w-full max-w-md glass rounded-[32px] p-10 border border-white/5 shadow-2xl relative overflow-hidden"
+                className="w-full max-w-md glass rounded-3xl sm:rounded-[32px] p-6 sm:p-10 border border-white/5 shadow-2xl relative overflow-hidden"
             >
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-indigo-500 opacity-50" />
                 

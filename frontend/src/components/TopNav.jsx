@@ -10,7 +10,7 @@ const TopNav = ({ onMenuToggle }) => {
 
   return (
     <>
-      <header className="h-20 w-full flex items-center justify-between px-6 md:px-8 z-40 bg-[#09090b]/80 backdrop-blur-md border-b border-white/5">
+      <header className="h-20 w-full flex items-center justify-between px-4 sm:px-6 md:px-8 z-40 bg-[#09090b]/80 backdrop-blur-md border-b border-white/5">
         <div className="flex items-center gap-4">
           {/* Hamburger for mobile */}
           <button
